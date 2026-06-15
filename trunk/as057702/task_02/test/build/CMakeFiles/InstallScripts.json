@@ -1,0 +1,10 @@
+{
+	"InstallScripts" : 
+	[
+		"D:/TMAU/TMAU/trunk/as057702/task_02/test/build/cmake_install.cmake",
+		"D:/TMAU/TMAU/trunk/as057702/task_02/test/build/googletest/cmake_install.cmake",
+		"D:/TMAU/TMAU/trunk/as057702/task_02/test/build/googletest/googlemock/cmake_install.cmake",
+		"D:/TMAU/TMAU/trunk/as057702/task_02/test/build/googletest/googletest/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

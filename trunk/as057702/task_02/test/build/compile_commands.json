@@ -1,0 +1,38 @@
+[
+{
+  "directory": "D:/TMAU/TMAU/trunk/as057702/task_02/test/build",
+  "command": "C:\\mingw64\\bin\\g++.exe  @CMakeFiles\\runTests.dir\\includes_CXX.rsp  -fprofile-arcs -ftest-coverage -g -std=gnu++17 -o CMakeFiles\\runTests.dir\\test_main.cpp.obj -c D:\\TMAU\\TMAU\\trunk\\as057702\\task_02\\test\\test_main.cpp",
+  "file": "D:/TMAU/TMAU/trunk/as057702/task_02/test/test_main.cpp",
+  "output": "CMakeFiles/runTests.dir/test_main.cpp.obj"
+},
+{
+  "directory": "D:/TMAU/TMAU/trunk/as057702/task_02/test/build",
+  "command": "C:\\mingw64\\bin\\g++.exe  @CMakeFiles\\runTests.dir\\includes_CXX.rsp  -fprofile-arcs -ftest-coverage -g -std=gnu++17 -o CMakeFiles\\runTests.dir\\D_\\TMAU\\TMAU\\trunk\\as057702\\task_02\\src\\main.cpp.obj -c D:\\TMAU\\TMAU\\trunk\\as057702\\task_02\\src\\main.cpp",
+  "file": "D:/TMAU/TMAU/trunk/as057702/task_02/src/main.cpp",
+  "output": "CMakeFiles/runTests.dir/D_/TMAU/TMAU/trunk/as057702/task_02/src/main.cpp.obj"
+},
+{
+  "directory": "D:/TMAU/TMAU/trunk/as057702/task_02/test/build/googletest/googlemock",
+  "command": "C:\\mingw64\\bin\\g++.exe  @CMakeFiles\\gmock.dir\\includes_CXX.rsp  -fprofile-arcs -ftest-coverage -g -std=c++17 -Wall -Wshadow -Wundef -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=0 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -o CMakeFiles\\gmock.dir\\src\\gmock-all.cc.obj -c D:\\googletest-1.14.0\\googlemock\\src\\gmock-all.cc",
+  "file": "D:/googletest-1.14.0/googlemock/src/gmock-all.cc",
+  "output": "googletest/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.obj"
+},
+{
+  "directory": "D:/TMAU/TMAU/trunk/as057702/task_02/test/build/googletest/googlemock",
+  "command": "C:\\mingw64\\bin\\g++.exe  @CMakeFiles\\gmock_main.dir\\includes_CXX.rsp  -fprofile-arcs -ftest-coverage -g -std=c++17 -Wall -Wshadow -Wundef -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=0 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -o CMakeFiles\\gmock_main.dir\\src\\gmock_main.cc.obj -c D:\\googletest-1.14.0\\googlemock\\src\\gmock_main.cc",
+  "file": "D:/googletest-1.14.0/googlemock/src/gmock_main.cc",
+  "output": "googletest/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.obj"
+},
+{
+  "directory": "D:/TMAU/TMAU/trunk/as057702/task_02/test/build/googletest/googletest",
+  "command": "C:\\mingw64\\bin\\g++.exe  @CMakeFiles\\gtest.dir\\includes_CXX.rsp  -fprofile-arcs -ftest-coverage -g -std=c++17 -Wall -Wshadow -Wundef -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=0 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -o CMakeFiles\\gtest.dir\\src\\gtest-all.cc.obj -c D:\\googletest-1.14.0\\googletest\\src\\gtest-all.cc",
+  "file": "D:/googletest-1.14.0/googletest/src/gtest-all.cc",
+  "output": "googletest/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.obj"
+},
+{
+  "directory": "D:/TMAU/TMAU/trunk/as057702/task_02/test/build/googletest/googletest",
+  "command": "C:\\mingw64\\bin\\g++.exe  @CMakeFiles\\gtest_main.dir\\includes_CXX.rsp  -fprofile-arcs -ftest-coverage -g -std=c++17 -Wall -Wshadow -Wundef -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=0 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -o CMakeFiles\\gtest_main.dir\\src\\gtest_main.cc.obj -c D:\\googletest-1.14.0\\googletest\\src\\gtest_main.cc",
+  "file": "D:/googletest-1.14.0/googletest/src/gtest_main.cc",
+  "output": "googletest/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.obj"
+}
+]
