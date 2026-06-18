@@ -45,23 +45,49 @@
 - `linearModel`;
 - `nonlinearModel`.
 
+Отчёт gcovr:
+
+| Файл | Lines | Exec | Cover |
+|------|------:|-----:|------:|
+| `src/model.cpp` | 4 | 4 | 100% |
+| **Итого** | **4** | **4** | **100%** |
+
+| Метрика | Покрытие |
+|---------|----------|
+| lines | 100.0% (4 из 4) |
+| functions | 100.0% (2 из 2) |
+| branches | 0.0% (0 из 0) |
+
 ## Сборка проекта
 
-```bash
+`CMakeLists.txt` находится в корне `task_02/`, а не в `src/` (в отличие от лабораторной работы №1). Каталог `build` нужно создавать в корне проекта.
+
+```powershell
+cd trunk/AS0057705/task_02
 mkdir build
 cd build
 cmake .. -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="--coverage" -DCMAKE_EXE_LINKER_FLAGS="--coverage"
 cmake --build .
 ```
 
+Если каталог `build` был создан внутри `src/`, удалите его и повторите команды из корня `task_02/`.
+
 ## Запуск тестов
 
-```bash
+Из каталога `task_02/build`:
+
+```powershell
 ctest --output-on-failure
 ```
 
 ## Анализ покрытия
 
-```bash
-gcovr -r .. --filter "../src/model.cpp" --print-summary
+Из каталога `task_02/build`:
+
+```powershell
+python -m gcovr -r .. --filter ".*/src/model\.cpp$" --print-summary
 ```
+
+Сначала запустите тесты (`ctest`), иначе файлов покрытия (`.gcda`) не будет.
+
+В gcovr 8.x фильтр `--filter "src/model.cpp"` на Windows отбрасывает все данные и даёт 0%. Нужен regex с экранированной точкой.

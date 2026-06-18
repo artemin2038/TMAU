@@ -43,10 +43,13 @@ y(t + 1) = a * y(t) - b * y(t - 1)^2 + c * u(t) + d * sin(u(t - 1))
 
 ## Сборка проекта
 
-```bash
+`CMakeLists.txt` находится в каталоге `src/`. Каталог `build` создаётся внутри `src/`.
+
+```powershell
+cd trunk/AS0057705/task_01/src
 mkdir build
 cd build
-cmake ..
+cmake .. -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Debug
 cmake --build .
 ```
 
