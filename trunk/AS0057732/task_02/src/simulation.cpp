@@ -1,30 +1,45 @@
 #include "simulation.h"
 #include <cmath>
 
-std::vector<double> simulateLinear(const std::vector<double>& u, const double a, const double b, const double y0) {
-    const size_t n = u.size();
-    std::vector<double> y(n + 1, 0.0);
-    y[0] = y0;
-    
-    for (size_t t = 0; t < n; ++t) {
-        y[t + 1] = a * y[t] + b * u[t];
+std::vector<double> linear_model(
+    const std::vector<double>& input,
+    const double alpha,
+    const double beta,
+    const double initial_temp)
+{
+    const std::size_t n = input.size();
+    std::vector<double> out(n + 1, 0.0);
+    out[0] = initial_temp;
+
+    for (std::size_t i = 0; i < n; ++i) {
+        out[i + 1] = alpha * out[i] + beta * input[i];
     }
-    return y;
+    return out;
 }
 
-std::vector<double> simulateNonlinear(const std::vector<double>& u, const double a, const double b, 
-                                      const double c, const double d, const double y0, const double y_minus1) {
-    const size_t n = u.size();
-    std::vector<double> y(n + 1, 0.0);
-    y[0] = y0;
-    
-    const double u_minus1 = 0.0;
-    
-    for (size_t t = 0; t < n; ++t) {
-        double prev_y = (t == 0) ? y_minus1 : y[t - 1];
-        double prev_u = (t == 0) ? u_minus1 : u[t - 1];
-        
-        y[t + 1] = a * y[t] - b * (prev_y * prev_y) + c * u[t] + d * std::sin(prev_u);
+std::vector<double> nonlinear_model(
+    const std::vector<double>& input,
+    const double alpha,
+    const double beta,
+    const double gamma,
+    const double delta,
+    const double initial_temp,
+    const double prev_temp)
+{
+    const std::size_t n = input.size();
+    std::vector<double> out(n + 1, 0.0);
+    out[0] = initial_temp;
+
+    const double u_prev_init = 0.0;
+
+    for (std::size_t i = 0; i < n; ++i) {
+        double y_prev = (i == 0) ? prev_temp : out[i - 1];
+        double u_prev = (i == 0) ? u_prev_init : input[i - 1];
+
+        out[i + 1] = alpha * out[i]
+                   - beta  * (y_prev * y_prev)
+                   + gamma * input[i]
+                   + delta * std::sin(u_prev);
     }
-    return y;
+    return out;
 }

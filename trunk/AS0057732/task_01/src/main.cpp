@@ -3,81 +3,85 @@
 #include <cmath>
 #include <iomanip>
 
-// Функция для моделирования линейного объекта
-// y_{τ+1} = a * y_τ + b * u_τ
-std::vector<double> simulateLinear(int n, double a, double b, const std::vector<double>& u, double y0) {
-    std::vector<double> y(n + 1, 0.0);
-    y[0] = y0; // Начальное значение температуры
-    
-    for (int t = 0; t < n; ++t) {
-        y[t + 1] = a * y[t] + b * u[t];
+using std::cout;
+using std::vector;
+
+vector<double> calc_linear(int steps, double coeff_a, double coeff_b,
+                           const vector<double>& input, double start_temp)
+{
+    vector<double> result(steps + 1, 0.0);
+    result[0] = start_temp;
+
+    for (int idx = 0; idx < steps; ++idx) {
+        result[idx + 1] = coeff_a * result[idx] + coeff_b * input[idx];
     }
-    return y;
+    return result;
 }
 
-// Функция для моделирования нелинейного объекта
-// y_{τ+1} = a * y_τ - b * y_{τ-1}^2 + c * u_τ + d * sin(u_{τ-1})
-std::vector<double> simulateNonlinear(int n, double a, double b, double c, double d, 
-                                      const std::vector<double>& u, double y0, double y_minus1) {
-    std::vector<double> y(n + 1, 0.0);
-    y[0] = y0;
-    
-    // Примем его равным 0.0 по умолчанию
-    double u_minus1 = 0.0;
-    
-    for (int t = 0; t < n; ++t) {
-        // Определение предыдущих значений с учетом начальных условий на шаге t = 0
-        double prev_y = (t == 0) ? y_minus1 : y[t - 1];
-        double prev_u = (t == 0) ? u_minus1 : u[t - 1];
-        
-        y[t + 1] = a * y[t] - b * (prev_y * prev_y) + c * u[t] + d * std::sin(prev_u);
+vector<double> calc_nonlinear(int steps, double coeff_a, double coeff_b,
+                              double coeff_c, double coeff_d,
+                              const vector<double>& input,
+                              double start_temp, double prev_temp)
+{
+    vector<double> result(steps + 1, 0.0);
+    result[0] = start_temp;
+    double prev_input = 0.0;
+
+    for (int idx = 0; idx < steps; ++idx) {
+        double y_prev = (idx == 0) ? prev_temp : result[idx - 1];
+        double u_prev = (idx == 0) ? prev_input : input[idx - 1];
+
+        result[idx + 1] = coeff_a * result[idx]
+                        - coeff_b * (y_prev * y_prev)
+                        + coeff_c * input[idx]
+                        + coeff_d * std::sin(u_prev);
     }
-    return y;
+    return result;
 }
 
-int main() {
-    // Количество дискретных моментов времени (шагов симуляции)
-    const int n = 15;
-    
-    // Коэффициенты-константы для линейной модели (примерные значения)
-    double a_lin = 0.85;
-    double b_lin = 0.4;
-    
-    // Коэффициенты-константы для нелинейной модели (примерные значения)
-    double a_nonlin = 0.85;
-    double b_nonlin = 0.01; // малый коэффициент, чтобы система была стабильной
-    double c_nonlin = 0.4;
-    double d_nonlin = 0.2;
-    
-    // Начальные условия
-    double y0 = 20.0;        // Температура в начальный момент y(0)
-    double y_minus1 = 20.0;  // Температура в предшествующий момент y(-1) для нелинейной модели
-    
-    // Входной поток тепла / управление u(τ) на каждом шаге
-    // Заполнение массива постоянным значением 
-    std::vector<double> u(n, 12.0); 
-    
-    // Выполнение симуляции
-    std::vector<double> y_linear = simulateLinear(n, a_lin, b_lin, u, y0);
-    std::vector<double> y_nonlinear = simulateNonlinear(n, a_nonlin, b_nonlin, c_nonlin, d_nonlin, u, y0, y_minus1);
-    
-    // вывод результатов в консоль
-    std::cout << std::fixed << std::setprecision(4);
-    std::cout << "Step (tau) |  u(tau)  |  y(tau) Linear  |  y(tau) Nonlinear\n";
-    std::cout << "-------------------------------------------------------------\n";
-    
-    for (int t = 0; t <= n; ++t) {
-        std::cout << std::setw(9) << t << " | ";
-        
-        if (t < n) {
-            std::cout << std::setw(8) << u[t] << " | ";
-        } else {
-            std::cout << std::setw(8) << "-" << " | "; // на последнем шаге n управление уже не прикладывается
-        }
-        
-        std::cout << std::setw(16) << y_linear[t] << " | "
-                  << std::setw(17) << y_nonlinear[t] << "\n";
+void print_separator() {
+    cout << "+-----------+----------+------------------+-------------------+\n";
+}
+
+int main()
+{
+    constexpr int TOTAL_STEPS    = 15;
+    constexpr double A_LIN       = 0.9;
+    constexpr double B_LIN       = 0.35;
+    constexpr double A_NLIN      = 0.9;
+    constexpr double B_NLIN      = 0.015;
+    constexpr double C_NLIN      = 0.35;
+    constexpr double D_NLIN      = 0.25;
+    constexpr double ROOM_TEMP   = 22.0;
+    constexpr double PREV_TEMP   = 22.0;
+    constexpr double HEAT_INPUT  = 10.0;
+
+    vector<double> control_signal(TOTAL_STEPS, HEAT_INPUT);
+
+    vector<double> lin_result  = calc_linear(
+        TOTAL_STEPS, A_LIN, B_LIN, control_signal, ROOM_TEMP);
+
+    vector<double> nlin_result = calc_nonlinear(
+        TOTAL_STEPS, A_NLIN, B_NLIN, C_NLIN, D_NLIN,
+        control_signal, ROOM_TEMP, PREV_TEMP);
+
+    cout << std::fixed << std::setprecision(4);
+    print_separator();
+    cout << "|    Step   |  u(tau)  |  y_linear(tau)  | y_nonlinear(tau) |\n";
+    print_separator();
+
+    for (int t = 0; t <= TOTAL_STEPS; ++t) {
+        cout << "| " << std::setw(9) << t << " | ";
+
+        if (t < TOTAL_STEPS)
+            cout << std::setw(8) << control_signal[t] << " | ";
+        else
+            cout << std::setw(8) << "---" << " | ";
+
+        cout << std::setw(16) << lin_result[t] << " | "
+             << std::setw(17) << nlin_result[t] << " |\n";
     }
-    
+    print_separator();
+
     return 0;
 }

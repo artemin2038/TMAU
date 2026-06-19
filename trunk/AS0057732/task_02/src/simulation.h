@@ -1,11 +1,20 @@
-#ifndef SIMULATION_H
-#define SIMULATION_H
+#pragma once
 
 #include <vector>
 
-std::vector<double> simulateLinear(const std::vector<double>& u, double a, double b, double y0);
+std::vector<double> linear_model(
+    const std::vector<double>& input,
+    double alpha,
+    double beta,
+    double initial_temp
+);
 
-std::vector<double> simulateNonlinear(const std::vector<double>& u, double a, double b, 
-                                      double c, double d, double y0, double y_minus1);
-
-#endif // SIMULATION_H
+std::vector<double> nonlinear_model(
+    const std::vector<double>& input,
+    double alpha,
+    double beta,
+    double gamma,
+    double delta,
+    double initial_temp,
+    double prev_temp
+);

@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.10)
+project(task01_simulation CXX)
 
-# Имя вашего проекта
-project(Lab1)
-
-# Указываем стандарт C++
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Создаем исполняемый файл "my_program" из исходника "main.cpp"
-add_executable(my_program main.cpp)
+add_executable(task01_sim main.cpp)
+
+if(MSVC)
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /utf-8")
+endif()
