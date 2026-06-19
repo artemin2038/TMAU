@@ -1,4 +1,0 @@
-D:/ynik/TMAU/trunk/AS0057728/task_02/build/CMakeFiles/task_02.dir
-D:/ynik/TMAU/trunk/AS0057728/task_02/build/CMakeFiles/tests.dir
-D:/ynik/TMAU/trunk/AS0057728/task_02/build/CMakeFiles/edit_cache.dir
-D:/ynik/TMAU/trunk/AS0057728/task_02/build/CMakeFiles/rebuild_cache.dir

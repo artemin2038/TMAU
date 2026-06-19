@@ -1,3 +1,0 @@
-"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\task_02.dir/objects.a
-C:\MinGW\bin\ar.exe qc CMakeFiles\task_02.dir/objects.a @CMakeFiles\task_02.dir\objects1.rsp
-C:\MinGW\bin\c++.exe -Wl,--whole-archive CMakeFiles\task_02.dir/objects.a -Wl,--no-whole-archive -o task_02.exe -Wl,--out-implib,libtask_02.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\task_02.dir\linkLibs.rsp
