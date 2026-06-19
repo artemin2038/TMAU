@@ -1,0 +1,7 @@
+# CMake / MinGW build output
+build/
+cmake-build-*/
+
+# Coverage artifacts (gcov)
+*.gcda
+*.gcno
