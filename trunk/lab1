@@ -1,0 +1,68 @@
+#include <iostream>
+#include <vector>
+#include <cmath>
+#include <iomanip>
+
+using namespace std;
+
+// Линейная модель: y_{t+1} = a*y_t + b*u_t
+double linear_model(double y, double u, double a, double b) {
+    return a * y + b * u;
+}
+
+// Нелинейная модель: y_{t+1} = a*y_t - b*y_{t-1}^2 + c*u_t + d*sin(u_{t-1})
+double nonlinear_model(double y, double y_prev, double u, double u_prev, 
+                        double a, double b, double c, double d) {
+    return a * y - b * y_prev * y_prev + c * u + d * sin(u_prev);
+}
+
+int main() {
+    // Параметры моделей
+    double a, b, c, d;
+    cout << "Enter a, b, c, d: ";
+    cin >> a >> b >> c >> d;
+
+    // Начальные условия
+    double y0, y1, u0, u1;
+    cout << "Enter y(0), y(1), u(0), u(1): ";
+    cin >> y0 >> y1 >> u0 >> u1;
+
+    // Количество шагов
+    int n;
+    cout << "Enter number of steps: ";
+    cin >> n;
+
+    // Векторы для хранения данных
+    vector<double> y_lin(n + 2), y_nonlin(n + 2), u(n + 2);
+    y_lin[0] = y0;
+    y_lin[1] = y1;
+    y_nonlin[0] = y0;
+    y_nonlin[1] = y1;
+    u[0] = u0;
+    u[1] = u1;
+
+    // Ввод управляющих воздействий для t = 2..n+1
+    cout << "Enter u(2) ... u(" << n+1 << "): ";
+    for (int t = 2; t <= n+1; ++t) {
+        cin >> u[t];
+    }
+
+    // Моделирование
+    for (int t = 1; t <= n; ++t) {
+        // Линейная модель
+        y_lin[t+1] = linear_model(y_lin[t], u[t], a, b);
+        // Нелинейная модель
+        y_nonlin[t+1] = nonlinear_model(y_nonlin[t], y_nonlin[t-1], 
+                                        u[t], u[t-1], a, b, c, d);
+    }
+
+    // Вывод результатов
+    cout << "\nTime\tLinear\t\tNonlinear\n";
+    cout << "----------------------------------------\n";
+    for (int t = 0; t <= n+1; ++t) {
+        cout << t << "\t" << fixed << setprecision(4) 
+             << y_lin[t] << "\t\t" << y_nonlin[t] << "\n";
+    }
+
+    return 0;
+}
